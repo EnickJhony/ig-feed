@@ -1,8 +1,8 @@
-import styles from './Post.module.css'
+import styles from './Post.module.css';
 
 export function Post() {
   return (
-    <article style={styles.post}>
+    <article className={styles.post}>
       <header>
         <div className={styles.author}>
           <img
