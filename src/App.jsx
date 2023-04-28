@@ -6,6 +6,51 @@ import styles from './App.module.css'
 import './global.css'
 
 
+const posts = [
+  {
+    id: 1,
+    author: {
+      avatarURL: 'https://github.com/EnickJhony.png',
+      name: 'Enick Jhony',
+      role: 'Programador'
+    },
+    content:[
+      { type: 'paragraph', content: 'Esse é o texto do post' },
+      { type: 'paragraph', content: 'vou modificar a segunda linha' },
+      { type: 'link', content: 'google.com/enick' }
+    ],
+    publishedAt: new Date('2023-04-25 10:00:00')
+  },
+  {
+    id: 2,
+    author: {
+      avatarURL: 'https://github.com/brennonjunio.png',
+      name: 'Brennon',
+      role: 'Corno'
+    },
+    content:[
+      { type: 'paragraph', content: 'Esse é o texto do post' },
+      { type: 'paragraph', content: 'vou modificar a segunda linha' },
+      { type: 'link', content: 'google.com/enick' }
+    ],
+    publishedAt: new Date('2023-04-27 22:00:00')
+  },
+  {
+    id: 3,
+    author: {
+      avatarURL: 'https://github.com/diego3g.png',
+      name: 'Diego Fernandes',
+      role: 'Lindo'
+    },
+    content:[
+      { type: 'paragraph', content: 'Esse é o texto do post' },
+      { type: 'paragraph', content: 'vou modificar a segunda linha' },
+      { type: 'link', content: 'google.com/enick' }
+    ],
+    publishedAt: new Date('2023-04-10 12:00:00')
+  }
+]
+
 export function App() {
   return (
     <div>
@@ -13,10 +58,16 @@ export function App() {
       <div className={styles.wrapper}>
         <Sidebar />
         <main>
-          <Post />
-          <Post />
-          <Post />
-          <Post />
+          { posts.map( post => {
+            return(
+              <Post
+                key={posts.id}
+                author={posts.author}
+                content={posts.content}
+                publishedAt={posts.publishedAt}
+              />
+            )
+          })}
         </main>
       </div>
     </div>
