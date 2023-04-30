@@ -19,7 +19,7 @@ const posts = [
       { type: 'paragraph', content: 'vou modificar a segunda linha' },
       { type: 'link', content: 'google.com/enick' }
     ],
-    publishedAt: new Date('2023-04-25 10:00:00')
+    publishedAt: new Date('2023-04-30 10:00:00')
   },
   {
     id: 2,
@@ -29,9 +29,7 @@ const posts = [
       role: 'Corno'
     },
     content:[
-      { type: 'paragraph', content: 'Esse é o texto do post' },
-      { type: 'paragraph', content: 'vou modificar a segunda linha' },
-      { type: 'link', content: 'google.com/enick' }
+      { type: 'paragraph', content: 'Ficou muito massa irmão!' }
     ],
     publishedAt: new Date('2023-04-27 22:00:00')
   },
@@ -58,13 +56,13 @@ export function App() {
       <div className={styles.wrapper}>
         <Sidebar />
         <main>
-          { posts.map( post => {
+          { posts.map(post => {
             return(
               <Post
-                key={posts.id}
-                author={posts.author}
-                content={posts.content}
-                publishedAt={posts.publishedAt}
+                key={post.id}
+                author={post.author}
+                content={post.content}
+                publishedAt={post.publishedAt}
               />
             )
           })}
