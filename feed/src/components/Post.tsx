@@ -3,13 +3,26 @@ import ptBR from 'date-fns/locale/pt-BR'
 import styles from './Post.module.css'
 import { Comment } from './Comment'
 import { Avatar } from './Avatar'
-import { useState } from 'react'
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react'
 
-export function Post({ author, publishedAt, content }) {
-  const [comments, setComment] = useState([])
+export interface PostProps {
+  author: {
+    avatarURL: string
+    name: string
+    role: string
+  }
+  content: {
+    type: 'paragraph' | 'link'
+    content: string
+  }[]
+  publishedAt: Date
+}
+
+export function Post({ author, publishedAt, content }: PostProps) {
+  const [comments, setComment] = useState(['Exemplo de comentário'])
 
   const [newCommentText, setNewCommentText] = useState('')
-  
+
   const publishedDateFormatted = format(
     publishedAt,
     "d 'de' LLLL 'às' HH'h'mm",
@@ -23,27 +36,27 @@ export function Post({ author, publishedAt, content }) {
     addSuffix: true
   })
 
-  function handleCreateNewComment() {
+  function handleCreateNewComment(event: FormEvent) {
     event.preventDefault()
 
     setComment([...comments, newCommentText])
     setNewCommentText('')
   }
 
-  function handleNewCommentChange(){
-    event.target.setCustomValidity('');
-    setNewCommentText(event.target.value);
+  function handleNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>) {
+    event.target.setCustomValidity('')
+    setNewCommentText(event.target.value)
   }
 
-  function handleNewCommentInvalid(){
-    event.target.setCustomValidity('Esse é um campo obrigatório!');
+  function handleNewCommentInvalid(event: InvalidEvent<HTMLTextAreaElement>) {
+    event.target.setCustomValidity('Esse é um campo obrigatório!')
   }
 
-  function deleteComment(commentToDelete){
+  function deleteComment(commentToDelete: string) {
     const commentsWithoutDeletedOne = comments.filter(comment => {
-      return comment !== commentToDelete;
+      return comment !== commentToDelete
     })
-    
+
     setComment(commentsWithoutDeletedOne)
   }
 
@@ -102,7 +115,13 @@ export function Post({ author, publishedAt, content }) {
 
       <div className={styles.commentList}>
         {comments.map(comment => {
-          return <Comment key={comment} content={comment} onDeleteComment={deleteComment} />
+          return (
+            <Comment
+              key={comment}
+              content={comment}
+              onDeleteComment={deleteComment}
+            />
+          )
         })}
       </div>
     </article>
